@@ -20,20 +20,23 @@ public class seminar4 {
             System.out.println("Введите ФИО возраст пол: ");
             row = in.nextLine();
         }
+        ArrayList<Integer> cachedName = indexedList(data, 1, false);
+        ArrayList<Integer> cachedAge = indexedList(data, 4, true);
+        ArrayList<Integer> cachedGender = indexedList(data, 5, false);
         System.out.println("Отсортировать по фамилии нажмите 1, по возрасту 2, по полу 3");
         String chosenSort = in.nextLine();
         switch (chosenSort) {
             case "1" -> {
                 System.out.println("Данные отсортированы по фамилии");
-                printList(data, indexedList(data, 1, false));
+                printList(data, cachedName);
             }
             case "2" -> {
                 System.out.println("Данные отсортированы по возрасту");
-                printList(data, indexedList(data, 4, true));
+                printList(data, cachedAge);
             }
             case "3" -> {
                 System.out.println("Данные отсортированы по полу");
-                printList(data, indexedList(data, 5, false));
+                printList(data, cachedGender);
             }
             default -> {
                 System.out.println("Данные отсортированы по времени записи");
@@ -43,6 +46,10 @@ public class seminar4 {
         }
     public static ArrayList<Integer> indexedList(ArrayList<String> stringArrayList, int column, boolean typeColumn){
         ArrayList<Integer> index = new ArrayList<>();
+        if (column == 0) {
+            for (int i = 0; i < stringArrayList.size(); i++) index.add(i);
+            return index;
+        }
         if (typeColumn) {stringArrayList.sort(Comparator.comparing(n -> Integer.parseInt(n.split(" ")[column])));
         } else {         stringArrayList.sort(Comparator.comparing(n -> n.split(" ")[column])); }
         for (String d: stringArrayList) index.add(Integer.parseInt(d.split(" ")[0]));
